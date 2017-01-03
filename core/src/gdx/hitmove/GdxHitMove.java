@@ -37,6 +37,7 @@ public class GdxHitMove extends ApplicationAdapter implements InputProcessor {
         txHero = new Texture("algore.png");
         sprRock = new Sprite(txWall);
         sprRock.setPosition(nRX, nRY);
+        sprRock.setSize(100,100);
         fW = txHero.getWidth();
         fH = txHero.getHeight();
         sprVlad = new Sprite2(txHero, fSx, fSy, fW, fH, 300, 500);
@@ -80,7 +81,7 @@ public class GdxHitMove extends ApplicationAdapter implements InputProcessor {
         System.out.println(sprVlad.getY());
         batch.begin();
         batch.draw(txHero, Math.round((float) sprVlad.dX), Math.round((float) sprVlad.dY));
-        batch.draw(sprRock, sprRock.getX(), sprRock.getY());
+        batch.draw(sprRock, sprRock.getX(), sprRock.getY(),100,100);
         batch.end();
     }
 
