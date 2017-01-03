@@ -10,8 +10,6 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.math.Rectangle;
 
 public class Sprite2 extends Sprite {
-
-    String sName;
     double dX, dY;
     Texture txHero;
     float fSx, fSy, fW, fH;

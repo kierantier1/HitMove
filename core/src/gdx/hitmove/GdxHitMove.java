@@ -3,30 +3,24 @@ package gdx.hitmove;
 import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
-import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.graphics.g2d.TextureRegion;
-import com.badlogic.gdx.math.Rectangle;
-import com.badlogic.gdx.utils.Array;
 
 public class GdxHitMove extends ApplicationAdapter implements InputProcessor {
 
     SpriteBatch batch;
     Sprite2 sprVlad;
-    Sprite sprRock;
+    Sprite arsprRock[] = new Sprite[12];
     Texture txWall, txHero;
     Animation araniVlad[];
     int fW, fH, fSx, fSy; // height and width of SpriteSheet image - and the starting upper coordinates on the Sprite Sheet
     int nFrame, nPos;
-    int nX, nY, nRX=400, nRY=200;
+    int nRX,nRY;
     int nSpeed;
-    int nUpDown, nLeftRight;
-    Rectangle rect;
 
     @Override
     public void create() {
@@ -35,9 +29,14 @@ public class GdxHitMove extends ApplicationAdapter implements InputProcessor {
         batch = new SpriteBatch();
         txWall = new Texture("rock.png");
         txHero = new Texture("algore.png");
-        sprRock = new Sprite(txWall);
-        sprRock.setPosition(nRX, nRY);
-        sprRock.setSize(100,100);
+        for (int i = 0; i < arsprRock.length; i++) {
+            arsprRock[i] = new Sprite(txWall);
+            arsprRock[i].setSize(100, 100);
+        }
+        for(int i=0;i<arsprRock.length;i++){
+        arsprRock[i].setPosition(nRX,nRY);
+        nRX+=100;
+        }
         fW = txHero.getWidth();
         fH = txHero.getHeight();
         sprVlad = new Sprite2(txHero, fSx, fSy, fW, fH, 300, 500);
@@ -50,78 +49,92 @@ public class GdxHitMove extends ApplicationAdapter implements InputProcessor {
         if (Gdx.input.isKeyPressed(Input.Keys.A)) {
             sprVlad.dLastX = sprVlad.dX;
             sprVlad.dX -= nSpeed;
-            if (isHit(sprVlad, sprRock)) {
-                sprVlad.dX += nSpeed;
+            for (int i = 0; i < 10; i++) {
+                if (isHit(sprVlad, arsprRock[i])) {
+                    sprVlad.dX += nSpeed;
+                }
             }
         }
         if (Gdx.input.isKeyPressed(Input.Keys.D)) {
             sprVlad.dLastX = sprVlad.dX;
             sprVlad.dX += nSpeed;
-
-            if (isHit(sprVlad, sprRock)) {
-                sprVlad.dX -= nSpeed;
+            for (int i = 0; i < arsprRock.length; i++) {
+                if (isHit(sprVlad, arsprRock[i])) {
+                    sprVlad.dX -= nSpeed;
+                }
             }
         }
         if (Gdx.input.isKeyPressed(Input.Keys.W)) {
             sprVlad.dLastY = sprVlad.dY;
             sprVlad.dY += nSpeed;
-
-            if (isHit(sprVlad, sprRock)) {
-                sprVlad.dY -= nSpeed;
+            for (int i = 0; i < arsprRock.length; i++) {
+                if (isHit(sprVlad, arsprRock[i])) {
+                    sprVlad.dY -= nSpeed;
+                }
             }
         }
         if (Gdx.input.isKeyPressed(Input.Keys.S)) {
             sprVlad.dLastY = sprVlad.dY;
             sprVlad.dY -= nSpeed;
-                if (isHit(sprVlad, sprRock)) {
+            for (int i = 0; i < arsprRock.length; i++) {
+                if (isHit(sprVlad, arsprRock[i])) {
                     sprVlad.dY += nSpeed;
                 }
+            }
         }
-        System.out.println("y" + sprVlad.getY());
-        System.out.println(sprVlad.getY());
         batch.begin();
         batch.draw(txHero, Math.round((float) sprVlad.dX), Math.round((float) sprVlad.dY));
-        batch.draw(sprRock, sprRock.getX(), sprRock.getY(),100,100);
+        for (int i = 0; i < arsprRock.length; i++) {
+        batch.draw(arsprRock[i], arsprRock[i].getX(), arsprRock[i].getY(),100,100);
+        }
         batch.end();
     }
 
     @Override
-    public boolean keyDown(int keycode) {
+    public boolean keyDown(int keycode
+    ) {
         return false;
     }
 
     @Override
-    public boolean keyUp(int keycode) {
+    public boolean keyUp(int keycode
+    ) {
         return false;
     }
 
     @Override
-    public boolean keyTyped(char character) {
+    public boolean keyTyped(char character
+    ) {
         return false;
     }
 
     @Override
-    public boolean touchDown(int screenX, int screenY, int pointer, int button) {
+    public boolean touchDown(int screenX, int screenY, int pointer, int button
+    ) {
         return false;
     }
 
     @Override
-    public boolean touchUp(int screenX, int screenY, int pointer, int button) {
+    public boolean touchUp(int screenX, int screenY, int pointer, int button
+    ) {
         return false;
     }
 
     @Override
-    public boolean touchDragged(int screenX, int screenY, int pointer) {
+    public boolean touchDragged(int screenX, int screenY, int pointer
+    ) {
         return false;
     }
 
     @Override
-    public boolean mouseMoved(int screenX, int screenY) {
+    public boolean mouseMoved(int screenX, int screenY
+    ) {
         return false;
     }
 
     @Override
-    public boolean scrolled(int amount) {
+    public boolean scrolled(int amount
+    ) {
         return false;
     }
 
@@ -132,13 +145,7 @@ public class GdxHitMove extends ApplicationAdapter implements InputProcessor {
         batch.dispose();
     }
 
-    public static void setXY(Sprite spr, int nX, int nY) {
-        spr.setX(nX);
-        spr.setY(nY);
-    }
-
     public static boolean isHit(Sprite2 spr1, Sprite spr2) {
-        setXY(spr2, Math.round(spr2.getX()), Math.round(spr2.getY()));
         return spr1.retRect().overlaps(spr2.getBoundingRectangle()); //System.out.println("is hit");
     }
 }
