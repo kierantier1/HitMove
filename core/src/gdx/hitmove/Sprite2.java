@@ -18,9 +18,7 @@ public class Sprite2 extends Sprite {
 
     //Constuctor
     //Sprite2(sFile, fX, fY)
-    Sprite2(Texture txHero_, float fSx_, float fSy_, float fW_, float fH_, double dX_, double dY_) {
-        fSx = fSx_;
-        fSy = fSy_;
+    Sprite2(Texture txHero_, float fW_, float fH_, double dX_, double dY_) {
         fW = fW_;
         fH = fH_;
         dX = dX_;

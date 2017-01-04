@@ -6,20 +6,19 @@ import com.badlogic.gdx.Input;
 import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
 public class GdxHitMove extends ApplicationAdapter implements InputProcessor {
 
     SpriteBatch batch;
-    Sprite2 sprVlad;
+    Sprite2 sprHero;
     Sprite arsprRock[] = new Sprite[12];
-    Texture txWall, txHero;
-    Animation araniVlad[];
-    int fW, fH, fSx, fSy; // height and width of SpriteSheet image - and the starting upper coordinates on the Sprite Sheet
+    Sprite arsprWall[] = new Sprite[4];
+    Texture txRock, txHero, txOWall, txBG;
+    int nWH, nHH;
     int nFrame, nPos;
-    int nRX,nRY;
+    int nRX, nRY;
     int nSpeed;
 
     @Override
@@ -27,66 +26,106 @@ public class GdxHitMove extends ApplicationAdapter implements InputProcessor {
         Gdx.input.setInputProcessor((this));
         nSpeed = 5;
         batch = new SpriteBatch();
-        txWall = new Texture("rock.png");
-        txHero = new Texture("algore.png");
+        txBG = new Texture("Room.jpg");
+        txOWall = new Texture("rock.png");
+        txRock = new Texture("rock.png");
+        txHero = new Texture("Char.png");
+        for (int i = 0; i < 4; i++) {
+            arsprWall[i] = new Sprite(txOWall);
+        }
+        //Contains for the wall
+        arsprWall[0].setSize(30, 600);
+        arsprWall[1].setSize(30, 600);
+        arsprWall[1].setPosition(1170,0);//the position wouldnt register in hit test without this
+        arsprWall[2].setSize(1200, 40);
+        arsprWall[3].setSize(1200, 40);
+        arsprWall[3].setPosition(0,560);//the position wouldnt register in hit test without this
+        //Seting up the rocks size and image
         for (int i = 0; i < arsprRock.length; i++) {
-            arsprRock[i] = new Sprite(txWall);
+            arsprRock[i] = new Sprite(txRock);
             arsprRock[i].setSize(100, 100);
         }
-        for(int i=0;i<arsprRock.length;i++){
+        //Setting the positions of the rocks, this makes a row at the bottom
+        /*for(int i=0;i<arsprRock.length;i++){
         arsprRock[i].setPosition(nRX,nRY);
         nRX+=100;
-        }
-        fW = txHero.getWidth();
-        fH = txHero.getHeight();
-        sprVlad = new Sprite2(txHero, fSx, fSy, fW, fH, 300, 500);
+        }*/
+        arsprRock[1].setPosition(30, 40);
+
+        nWH = txHero.getWidth();
+        nHH = txHero.getHeight();
+        sprHero = new Sprite2(txHero, nWH, nHH, 300, 500);
     }
 
     @Override
     public void render() {
-        Gdx.gl.glClearColor(1, 0, 0, 1);
-        Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
         if (Gdx.input.isKeyPressed(Input.Keys.A)) {
-            sprVlad.dLastX = sprVlad.dX;
-            sprVlad.dX -= nSpeed;
-            for (int i = 0; i < 10; i++) {
-                if (isHit(sprVlad, arsprRock[i])) {
-                    sprVlad.dX += nSpeed;
+            sprHero.dLastX = sprHero.dX;
+            sprHero.dX -= nSpeed;
+            for (int i = 0; i < arsprWall.length; i++) {
+                if (isHit(sprHero, arsprWall[i])) {
+                    sprHero.dX += nSpeed;
+                }
+            }
+            for (int i = 0; i < arsprRock.length; i++) {
+                if (isHit(sprHero, arsprRock[i])) {
+                    sprHero.dX += nSpeed;
                 }
             }
         }
         if (Gdx.input.isKeyPressed(Input.Keys.D)) {
-            sprVlad.dLastX = sprVlad.dX;
-            sprVlad.dX += nSpeed;
+            sprHero.dLastX = sprHero.dX;
+            sprHero.dX += nSpeed;
+            for (int i = 0; i < arsprWall.length; i++) {
+                if (isHit(sprHero, arsprWall[i])) {
+                    sprHero.dX -= nSpeed;
+                }
+            }
             for (int i = 0; i < arsprRock.length; i++) {
-                if (isHit(sprVlad, arsprRock[i])) {
-                    sprVlad.dX -= nSpeed;
+                if (isHit(sprHero, arsprRock[i])) {
+                    sprHero.dX -= nSpeed;
                 }
             }
         }
         if (Gdx.input.isKeyPressed(Input.Keys.W)) {
-            sprVlad.dLastY = sprVlad.dY;
-            sprVlad.dY += nSpeed;
+            sprHero.dLastY = sprHero.dY;
+            sprHero.dY += nSpeed;
+            for (int i = 0; i < arsprWall.length; i++) {
+                if (isHit(sprHero, arsprWall[i])) {
+                    sprHero.dY -= nSpeed;
+                }
+            }
             for (int i = 0; i < arsprRock.length; i++) {
-                if (isHit(sprVlad, arsprRock[i])) {
-                    sprVlad.dY -= nSpeed;
+                if (isHit(sprHero, arsprRock[i])) {
+                    sprHero.dY -= nSpeed;
                 }
             }
         }
         if (Gdx.input.isKeyPressed(Input.Keys.S)) {
-            sprVlad.dLastY = sprVlad.dY;
-            sprVlad.dY -= nSpeed;
+            sprHero.dLastY = sprHero.dY;
+            sprHero.dY -= nSpeed;
+            for (int i = 0; i < arsprWall.length; i++) {
+                if (isHit(sprHero, arsprWall[i])) {
+                    sprHero.dY += nSpeed;
+                }
+            }
             for (int i = 0; i < arsprRock.length; i++) {
-                if (isHit(sprVlad, arsprRock[i])) {
-                    sprVlad.dY += nSpeed;
+                if (isHit(sprHero, arsprRock[i])) {
+                    sprHero.dY += nSpeed;
                 }
             }
         }
         batch.begin();
-        batch.draw(txHero, Math.round((float) sprVlad.dX), Math.round((float) sprVlad.dY));
-        for (int i = 0; i < arsprRock.length; i++) {
-        batch.draw(arsprRock[i], arsprRock[i].getX(), arsprRock[i].getY(),100,100);
-        }
+        batch.draw(txBG, 0, 0, 1200, 600);
+        batch.draw(txHero, Math.round((float) sprHero.dX), Math.round((float) sprHero.dY));
+        //batch.draw(arsprWall[0], 0, 0, 30, 600); These arent needed to register hit detection
+        //batch.draw(arsprWall[1], 1170, 0, 30, 600);
+        //batch.draw(arsprWall[2], 0, 0, 1200, 40);
+        //batch.draw(arsprWall[3], 0, 560, 1200, 40);
+        /*for (int i = 0; i < arsprRock.length; i++) { Creates a row of rocks at the bottom
+        batch.draw(arsprRock[i], arsprRock[i].getX(), arsprRock[i].getY(),70,70); 
+        }*/
+        batch.draw(arsprRock[1], arsprRock[1].getX(), arsprRock[1].getY(), 100, 100);
         batch.end();
     }
 
@@ -141,7 +180,7 @@ public class GdxHitMove extends ApplicationAdapter implements InputProcessor {
     @Override
     public void dispose() {
         txHero.dispose();
-        txWall.dispose();
+        txRock.dispose();
         batch.dispose();
     }
 
