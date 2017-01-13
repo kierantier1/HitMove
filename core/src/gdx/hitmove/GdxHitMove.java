@@ -26,7 +26,7 @@ public class GdxHitMove extends ApplicationAdapter implements InputProcessor {
         Gdx.input.setInputProcessor((this));
         nSpeed = 5;
         batch = new SpriteBatch();
-        txBG = new Texture("Room.jpg");
+        txBG = new Texture("Grass Tile Demo.png");
         txOWall = new Texture("rock.png");
         txRock = new Texture("rock.png");
         txHero = new Texture("Char.png");
