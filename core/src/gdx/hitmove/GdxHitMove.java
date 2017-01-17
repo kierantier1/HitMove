@@ -12,13 +12,12 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 public class GdxHitMove extends ApplicationAdapter implements InputProcessor {
 
     SpriteBatch batch;
-    Sprite2 sprHero;
+    SprHero sprHero;
     Sprite arsprRock[] = new Sprite[12];
     Sprite arsprWall[] = new Sprite[4];
-    Texture txRock, txHero, txOWall, txBG;
+    Texture txRock, txHero, txWall, txBG;
     int nWH, nHH;
     int nFrame, nPos;
-    int nRX, nRY;
     int nSpeed;
 
     @Override
@@ -27,11 +26,11 @@ public class GdxHitMove extends ApplicationAdapter implements InputProcessor {
         nSpeed = 5;
         batch = new SpriteBatch();
         txBG = new Texture("Grass Tile Demo.png");
-        txOWall = new Texture("rock.png");
+        txWall = new Texture("rock.png");
         txRock = new Texture("rock.png");
         txHero = new Texture("Char.png");
         for (int i = 0; i < 4; i++) {
-            arsprWall[i] = new Sprite(txOWall);
+            arsprWall[i] = new Sprite(txWall);
         }
         //Contains for the wall
         arsprWall[0].setSize(30, 600);
@@ -50,12 +49,12 @@ public class GdxHitMove extends ApplicationAdapter implements InputProcessor {
 
         nWH = txHero.getWidth();
         nHH = txHero.getHeight();
-        sprHero = new Sprite2(txHero, nWH, nHH, 300, 500);
+        sprHero = new SprHero(txHero, nWH, nHH, 300, 500);
     }
 
     @Override
     public void render() {
-        if (Gdx.input.isKeyPressed(Input.Keys.A)) {
+        if (Gdx.input.isKeyPressed(Input.Keys.LEFT)) {
             sprHero.dLastX = sprHero.dX;
             sprHero.dX -= nSpeed;
             for (int i = 0; i < arsprWall.length; i++) {
@@ -69,7 +68,7 @@ public class GdxHitMove extends ApplicationAdapter implements InputProcessor {
                 }
             }
         }
-        if (Gdx.input.isKeyPressed(Input.Keys.D)) {
+        if (Gdx.input.isKeyPressed(Input.Keys.RIGHT)) {
             sprHero.dLastX = sprHero.dX;
             sprHero.dX += nSpeed;
             for (int i = 0; i < arsprWall.length; i++) {
@@ -83,7 +82,7 @@ public class GdxHitMove extends ApplicationAdapter implements InputProcessor {
                 }
             }
         }
-        if (Gdx.input.isKeyPressed(Input.Keys.W)) {
+        if (Gdx.input.isKeyPressed(Input.Keys.UP)) {
             sprHero.dLastY = sprHero.dY;
             sprHero.dY += nSpeed;
             for (int i = 0; i < arsprWall.length; i++) {
@@ -97,7 +96,7 @@ public class GdxHitMove extends ApplicationAdapter implements InputProcessor {
                 }
             }
         }
-        if (Gdx.input.isKeyPressed(Input.Keys.S)) {
+        if (Gdx.input.isKeyPressed(Input.Keys.DOWN)) {
             sprHero.dLastY = sprHero.dY;
             sprHero.dY -= nSpeed;
             for (int i = 0; i < arsprWall.length; i++) {
@@ -174,7 +173,7 @@ public class GdxHitMove extends ApplicationAdapter implements InputProcessor {
         batch.dispose();
     }
 
-    public static boolean isHit(Sprite2 spr1, Sprite spr2) {
+    public static boolean isHit(SprHero spr1, Sprite spr2) {
         return spr1.retRect().overlaps(spr2.getBoundingRectangle()); //System.out.println("is hit");
     }
 }
