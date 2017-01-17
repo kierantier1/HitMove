@@ -36,21 +36,17 @@ public class GdxHitMove extends ApplicationAdapter implements InputProcessor {
         //Contains for the wall
         arsprWall[0].setSize(30, 600);
         arsprWall[1].setSize(30, 600);
-        arsprWall[1].setPosition(1170,0);//the position wouldnt register in hit test without this
+        arsprWall[1].setPosition(1170,0);
         arsprWall[2].setSize(1200, 40);
         arsprWall[3].setSize(1200, 40);
-        arsprWall[3].setPosition(0,560);//the position wouldnt register in hit test without this
+        arsprWall[3].setPosition(0,560);
         //Seting up the rocks size and image
         for (int i = 0; i < arsprRock.length; i++) {
             arsprRock[i] = new Sprite(txRock);
             arsprRock[i].setSize(100, 100);
         }
-        //Setting the positions of the rocks, this makes a row at the bottom
-        /*for(int i=0;i<arsprRock.length;i++){
-        arsprRock[i].setPosition(nRX,nRY);
-        nRX+=100;
-        }*/
-        arsprRock[1].setPosition(30, 40);
+        
+        arsprRock[1].setPosition(200, 300);
 
         nWH = txHero.getWidth();
         nHH = txHero.getHeight();
@@ -118,13 +114,7 @@ public class GdxHitMove extends ApplicationAdapter implements InputProcessor {
         batch.begin();
         batch.draw(txBG, 0, 0, 1200, 600);
         batch.draw(txHero, Math.round((float) sprHero.dX), Math.round((float) sprHero.dY));
-        //batch.draw(arsprWall[0], 0, 0, 30, 600); These arent needed to register hit detection
-        //batch.draw(arsprWall[1], 1170, 0, 30, 600);
-        //batch.draw(arsprWall[2], 0, 0, 1200, 40);
-        //batch.draw(arsprWall[3], 0, 560, 1200, 40);
-        /*for (int i = 0; i < arsprRock.length; i++) { Creates a row of rocks at the bottom
-        batch.draw(arsprRock[i], arsprRock[i].getX(), arsprRock[i].getY(),70,70); 
-        }*/
+        
         batch.draw(arsprRock[1], arsprRock[1].getX(), arsprRock[1].getY(), 100, 100);
         batch.end();
     }
