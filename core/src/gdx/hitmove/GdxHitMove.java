@@ -13,8 +13,8 @@ public class GdxHitMove extends ApplicationAdapter implements InputProcessor {
 
     SpriteBatch batch;
     SprHero sprHero;
-    Sprite arsprRock[] = new Sprite[12];
-    Sprite arsprWall[] = new Sprite[4];
+    Sprite arsprRock[] = new Sprite[1];
+    SprWall arsprWall[] = new SprWall[4];
     Texture txRock, txHero, txWall, txBG;
     int nWH, nHH;
     int nFrame, nPos;
@@ -29,23 +29,21 @@ public class GdxHitMove extends ApplicationAdapter implements InputProcessor {
         txWall = new Texture("rock.png");
         txRock = new Texture("rock.png");
         txHero = new Texture("Char.png");
-        for (int i = 0; i < 4; i++) {
-            arsprWall[i] = new Sprite(txWall);
-        }
         //Contains for the wall
-        arsprWall[0].setSize(30, 600);
-        arsprWall[1].setSize(30, 600);
-        arsprWall[1].setPosition(1170,0);
-        arsprWall[2].setSize(1200, 40);
-        arsprWall[3].setSize(1200, 40);
-        arsprWall[3].setPosition(0,560);
+        arsprWall[0] = new SprWall(txWall, 30, 600, 0, 0);
+        arsprWall[1] = new SprWall(txWall, 30, 600, 1170, 0);
+        arsprWall[2] = new SprWall(txWall, 1200, 40, 0, 0);
+        arsprWall[3] = new SprWall(txWall, 1200, 40, 0, 560);
+        //arsprWall[0].setSize(30, 600);
+        //arsprWall[1].setSize(30, 600);
+        //arsprWall[1].setPosition(1170,0);
+        //arsprWall[2].setSize(1200, 40);
+        // arsprWall[3].setSize(1200, 40);
+        // arsprWall[3].setPosition(0,560);
         //Seting up the rocks size and image
-        for (int i = 0; i < arsprRock.length; i++) {
-            arsprRock[i] = new Sprite(txRock);
-            arsprRock[i].setSize(100, 100);
-        }
-        
-        arsprRock[1].setPosition(200, 300);
+        arsprRock[0] = new Sprite(txRock);
+        arsprRock[0].setSize(100, 100);
+        arsprRock[0].setPosition(200, 300);
 
         nWH = txHero.getWidth();
         nHH = txHero.getHeight();
@@ -56,113 +54,101 @@ public class GdxHitMove extends ApplicationAdapter implements InputProcessor {
     public void render() {
         if (Gdx.input.isKeyPressed(Input.Keys.LEFT)) {
             sprHero.dLastX = sprHero.dX;
-            sprHero.dX -= nSpeed;
+            sprHero.dX -= 5;
             for (int i = 0; i < arsprWall.length; i++) {
                 if (isHit(sprHero, arsprWall[i])) {
-                    sprHero.dX += nSpeed;
+                    sprHero.dX += 5;
                 }
             }
-            for (int i = 0; i < arsprRock.length; i++) {
-                if (isHit(sprHero, arsprRock[i])) {
-                    sprHero.dX += nSpeed;
+                if (isHit(sprHero, arsprRock[0])) {
+                    sprHero.dX += 5;
                 }
-            }
         }
         if (Gdx.input.isKeyPressed(Input.Keys.RIGHT)) {
             sprHero.dLastX = sprHero.dX;
-            sprHero.dX += nSpeed;
+            sprHero.dX += 5;
             for (int i = 0; i < arsprWall.length; i++) {
                 if (isHit(sprHero, arsprWall[i])) {
-                    sprHero.dX -= nSpeed;
+                    sprHero.dX -= 5;
                 }
             }
-            for (int i = 0; i < arsprRock.length; i++) {
-                if (isHit(sprHero, arsprRock[i])) {
-                    sprHero.dX -= nSpeed;
+                if (isHit(sprHero, arsprRock[0])) {
+                    sprHero.dX -= 5;
                 }
-            }
         }
         if (Gdx.input.isKeyPressed(Input.Keys.UP)) {
             sprHero.dLastY = sprHero.dY;
-            sprHero.dY += nSpeed;
+            sprHero.dY += 5;
             for (int i = 0; i < arsprWall.length; i++) {
                 if (isHit(sprHero, arsprWall[i])) {
-                    sprHero.dY -= nSpeed;
+                    sprHero.dY -= 5;
                 }
             }
-            for (int i = 0; i < arsprRock.length; i++) {
-                if (isHit(sprHero, arsprRock[i])) {
-                    sprHero.dY -= nSpeed;
+  //          for (int i = 0; i < arsprRock.length; i++) {
+                if (isHit(sprHero, arsprRock[0])) {
+                    sprHero.dY -= 5;
                 }
-            }
+    //        }
         }
         if (Gdx.input.isKeyPressed(Input.Keys.DOWN)) {
             sprHero.dLastY = sprHero.dY;
-            sprHero.dY -= nSpeed;
+            sprHero.dY -= 5;
             for (int i = 0; i < arsprWall.length; i++) {
                 if (isHit(sprHero, arsprWall[i])) {
-                    sprHero.dY += nSpeed;
+                    sprHero.dY += 5;
                 }
             }
-            for (int i = 0; i < arsprRock.length; i++) {
-                if (isHit(sprHero, arsprRock[i])) {
-                    sprHero.dY += nSpeed;
+    //        for (int i = 0; i < arsprRock.length; i++) {
+                if (isHit(sprHero, arsprRock[0])) {
+                    sprHero.dY += 5;
                 }
-            }
+     //       }
         }
         batch.begin();
         batch.draw(txBG, 0, 0, 1200, 600);
         batch.draw(txHero, Math.round((float) sprHero.dX), Math.round((float) sprHero.dY));
-        
-        batch.draw(arsprRock[1], arsprRock[1].getX(), arsprRock[1].getY(), 100, 100);
+
+        batch.draw(arsprRock[0], arsprRock[0].getX(), arsprRock[0].getY(), 100, 100);
         batch.end();
     }
 
     @Override
-    public boolean keyDown(int keycode
-    ) {
+    public boolean keyDown(int keycode) {
         return false;
     }
 
     @Override
-    public boolean keyUp(int keycode
-    ) {
+    public boolean keyUp(int keycode) {
         return false;
     }
 
     @Override
-    public boolean keyTyped(char character
-    ) {
+    public boolean keyTyped(char character) {
         return false;
     }
 
     @Override
-    public boolean touchDown(int screenX, int screenY, int pointer, int button
-    ) {
+    public boolean touchDown(int screenX, int screenY, int pointer, int button) {
         return false;
     }
 
     @Override
-    public boolean touchUp(int screenX, int screenY, int pointer, int button
-    ) {
+    public boolean touchUp(int screenX, int screenY, int pointer, int button) {
         return false;
     }
 
     @Override
-    public boolean touchDragged(int screenX, int screenY, int pointer
-    ) {
+    public boolean touchDragged(int screenX, int screenY, int pointer) {
         return false;
     }
 
     @Override
-    public boolean mouseMoved(int screenX, int screenY
-    ) {
+    public boolean mouseMoved(int screenX, int screenY) {
         return false;
     }
 
     @Override
-    public boolean scrolled(int amount
-    ) {
+    public boolean scrolled(int amount) {
         return false;
     }
 
