@@ -90,8 +90,10 @@ public class GdxHitMove extends ApplicationAdapter implements InputProcessor {
             sprHero.dLastY = sprHero.dY;
             sprHero.dY -= 5;
             for (int i = 0; i < arsprWall.length; i++) {
+                System.out.println("KeyDown " + i);
                 if (isHit(sprHero, arsprWall[i])) {
                     sprHero.dY += 5;
+                    System.out.println("Hit " + i);
                 }
             }
                 if (isHit(sprHero, arsprRock[0])) {
@@ -101,6 +103,9 @@ public class GdxHitMove extends ApplicationAdapter implements InputProcessor {
         batch.begin();
         batch.draw(txBG, 0, 0, 1200, 600);
         batch.draw(txHero, Math.round((float) sprHero.dX), Math.round((float) sprHero.dY));
+        for (int i = 0; i < arsprWall.length; i++) {
+            batch.draw(arsprWall[i], arsprWall[i].getX(), arsprWall[i].getY(), 100, 100);
+        }
         batch.draw(arsprRock[0], arsprRock[0].getX(), arsprRock[0].getY(), 100, 100);
         batch.end();
     }
