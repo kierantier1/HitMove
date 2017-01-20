@@ -18,15 +18,13 @@ public class GdxHitMove extends ApplicationAdapter implements InputProcessor {
     Texture txRock, txHero, txWall, txBG;
     int nWH, nHH;
     int nFrame, nPos;
-    int nSpeed;
 
     @Override
     public void create() {
         Gdx.input.setInputProcessor((this));
-        nSpeed = 5;
         batch = new SpriteBatch();
         txBG = new Texture("Grass Tile Demo.png");
-        txWall = new Texture("rock.png");
+        txWall = new Texture("Wall.png");
         txRock = new Texture("rock.png");
         txHero = new Texture("Char.png");
         //Contains for the wall
@@ -34,13 +32,13 @@ public class GdxHitMove extends ApplicationAdapter implements InputProcessor {
         arsprWall[1] = new SprWall(txWall, 30, 600, 1170, 0);
         arsprWall[2] = new SprWall(txWall, 1200, 40, 0, 0);
         arsprWall[3] = new SprWall(txWall, 1200, 40, 0, 560);
-        //arsprWall[0].setSize(30, 600);
-        //arsprWall[1].setSize(30, 600);
-        //arsprWall[1].setPosition(1170,0);
-        //arsprWall[2].setSize(1200, 40);
-        // arsprWall[3].setSize(1200, 40);
-        // arsprWall[3].setPosition(0,560);
-        //Seting up the rocks size and image
+        /*arsprWall[0].setSize(30, 600);
+        arsprWall[1].setSize(30, 600);
+        arsprWall[1].setPosition(1170,0);
+        arsprWall[2].setSize(1200, 40);
+        arsprWall[3].setSize(1200, 40);
+        arsprWall[3].setPosition(0,560);*/
+        //Setting up the rocks size and image
         arsprRock[0] = new Sprite(txRock);
         arsprRock[0].setSize(100, 100);
         arsprRock[0].setPosition(200, 300);
@@ -84,11 +82,9 @@ public class GdxHitMove extends ApplicationAdapter implements InputProcessor {
                     sprHero.dY -= 5;
                 }
             }
-  //          for (int i = 0; i < arsprRock.length; i++) {
                 if (isHit(sprHero, arsprRock[0])) {
                     sprHero.dY -= 5;
                 }
-    //        }
         }
         if (Gdx.input.isKeyPressed(Input.Keys.DOWN)) {
             sprHero.dLastY = sprHero.dY;
@@ -98,16 +94,13 @@ public class GdxHitMove extends ApplicationAdapter implements InputProcessor {
                     sprHero.dY += 5;
                 }
             }
-    //        for (int i = 0; i < arsprRock.length; i++) {
                 if (isHit(sprHero, arsprRock[0])) {
                     sprHero.dY += 5;
                 }
-     //       }
         }
         batch.begin();
         batch.draw(txBG, 0, 0, 1200, 600);
         batch.draw(txHero, Math.round((float) sprHero.dX), Math.round((float) sprHero.dY));
-
         batch.draw(arsprRock[0], arsprRock[0].getX(), arsprRock[0].getY(), 100, 100);
         batch.end();
     }

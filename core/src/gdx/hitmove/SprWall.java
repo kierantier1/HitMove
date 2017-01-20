@@ -9,7 +9,7 @@ public class SprWall extends Sprite{
     Texture txWall;
     float fSx, fSy, fW, fH;
     Rectangle rect;
-    SprWall(Texture txHero_, float fW_, float fH_, double dX_, double dY_) {
+    SprWall(Texture txWall_, float fW_, float fH_, double dX_, double dY_) {
         fW = fW_;
         fH = fH_;
         dX = dX_;
