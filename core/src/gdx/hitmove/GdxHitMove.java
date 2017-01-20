@@ -13,7 +13,7 @@ public class GdxHitMove extends ApplicationAdapter implements InputProcessor {
 
     SpriteBatch batch;
     SprHero sprHero;
-    Sprite arsprRock[] = new Sprite[4];
+    Sprite arsprRock[] = new Sprite[1];
     SprWall arsprWall[] = new SprWall[4];
     Texture txRock, txHero, txWall, txBG;
     int nWH, nHH;
