@@ -13,7 +13,7 @@ public class GdxHitMove extends ApplicationAdapter implements InputProcessor {
 
     SpriteBatch batch;
     SprHero sprHero;
-    Sprite arsprRock[] = new Sprite[1];
+    Sprite arsprRock[] = new Sprite[4];
     SprWall arsprWall[] = new SprWall[4];
     Texture txRock, txHero, txWall, txBG;
     int nWH, nHH;
@@ -104,7 +104,7 @@ public class GdxHitMove extends ApplicationAdapter implements InputProcessor {
         batch.draw(txBG, 0, 0, 1200, 600);
         batch.draw(txHero, Math.round((float) sprHero.dX), Math.round((float) sprHero.dY));
         for (int i = 0; i < arsprWall.length; i++) {
-            batch.draw(arsprWall[i], arsprWall[i].getX(), arsprWall[i].getY(), 100, 100);
+            batch.draw(txWall, arsprWall[i].getX(), arsprWall[i].getY(), 100, 100);
         }
         batch.draw(arsprRock[0], arsprRock[0].getX(), arsprRock[0].getY(), 100, 100);
         batch.end();
