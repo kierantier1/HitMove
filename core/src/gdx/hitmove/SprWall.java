@@ -4,19 +4,21 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.math.Rectangle;
 
-public class SprWall extends Sprite{
+public class SprWall extends Sprite {
     double dX, dY;
-    Texture txWall;
+    Texture txRock;
     float fSx, fSy, fW, fH;
     Rectangle rect;
-    SprWall(Texture txWall_, float fW_, float fH_, double dX_, double dY_) {
-        super(txWall_);
+    double dLastX, dLastY;
+    
+    SprWall(Texture txRock_, float fW_, float fH_, double dX_, double dY_) {
         fW = fW_;
         fH = fH_;
         dX = dX_;
         dY = dY_;
     }
-    public Rectangle retRect() { 
+    
+    public Rectangle retRect() { //replaces .getBoundingRectangle() for hit detection 
         rect = new Rectangle(Math.round((float)dX), Math.round((float)dY), fW, fH);
         return rect;
     }
