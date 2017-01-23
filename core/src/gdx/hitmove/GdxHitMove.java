@@ -97,9 +97,9 @@ public class GdxHitMove extends ApplicationAdapter implements InputProcessor {
         batch.draw(txBG, 0, 0, 1200, 600);
         batch.draw(sprRock, sprRock.getX(), sprRock.getY(),100,100);
         batch.draw(txHero, Math.round((float) sprHero.dX), Math.round((float) sprHero.dY));
-        for(int i=0;i<arsprWall.length;i++){
+        /*for(int i=0;i<arsprWall.length;i++){
             batch.draw(txRock, arsprWall[i].getX(), arsprWall[i].getY(),100,100);
-        }
+        }*/
         //batch.draw(arsprWall[0], 0, 0, 30, 600); These arent needed to register hit detection
         //batch.draw(arsprWall[1], 1170, 0, 30, 600);
         //batch.draw(arsprWall[2], 0, 0, 1200, 40);
