@@ -12,6 +12,7 @@ public class SprHero extends Sprite {
     double dLastX, dLastY;
     
     SprHero(Texture txHero_, float fW_, float fH_, double dX_, double dY_) {
+        super(txHero_);
         fW = fW_;
         fH = fH_;
         dX = dX_;

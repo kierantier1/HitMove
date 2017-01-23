@@ -10,6 +10,7 @@ public class SprWall extends Sprite{
     float fSx, fSy, fW, fH;
     Rectangle rect;
     SprWall(Texture txWall_, float fW_, float fH_, double dX_, double dY_) {
+        super(txWall_);
         fW = fW_;
         fH = fH_;
         dX = dX_;

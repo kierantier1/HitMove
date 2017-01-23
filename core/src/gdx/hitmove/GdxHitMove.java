@@ -28,10 +28,10 @@ public class GdxHitMove extends ApplicationAdapter implements InputProcessor {
         txRock = new Texture("rock.png");
         txHero = new Texture("Char.png");
         //Contains for the wall
-        arsprWall[0] = new SprWall(txWall, 30, 600, 0, 0);
-        arsprWall[1] = new SprWall(txWall, 30, 600, 1170, 0);
-        arsprWall[2] = new SprWall(txWall, 1200, 40, 0, 0);
-        arsprWall[3] = new SprWall(txWall, 1200, 40, 0, 560);
+        arsprWall[0] = new SprWall(txWall, 10, 10, 0, 0);
+        arsprWall[1] = new SprWall(txWall, 10, 10, 0, 0);
+        arsprWall[2] = new SprWall(txWall, 10, 10, 0, 0);
+        arsprWall[3] = new SprWall(txWall, 10, 10, 0, 0);
         /*arsprWall[0].setSize(30, 600);
         arsprWall[1].setSize(30, 600);
         arsprWall[1].setPosition(1170,0);
@@ -45,7 +45,7 @@ public class GdxHitMove extends ApplicationAdapter implements InputProcessor {
 
         nWH = txHero.getWidth();
         nHH = txHero.getHeight();
-        sprHero = new SprHero(txHero, nWH, nHH, 300, 500);
+        sprHero = new SprHero(txHero, nWH, nHH, 900, 375);
     }
 
     @Override
@@ -78,8 +78,10 @@ public class GdxHitMove extends ApplicationAdapter implements InputProcessor {
             sprHero.dLastY = sprHero.dY;
             sprHero.dY += 5;
             for (int i = 0; i < arsprWall.length; i++) {
+                
                 if (isHit(sprHero, arsprWall[i])) {
                     sprHero.dY -= 5;
+                    System.out.println("Hit " + i);
                 }
             }
                 if (isHit(sprHero, arsprRock[0])) {
@@ -102,11 +104,15 @@ public class GdxHitMove extends ApplicationAdapter implements InputProcessor {
         }
         batch.begin();
         batch.draw(txBG, 0, 0, 1200, 600);
-        batch.draw(txHero, Math.round((float) sprHero.dX), Math.round((float) sprHero.dY));
-        for (int i = 0; i < arsprWall.length; i++) {
+        batch.draw(sprHero, Math.round((float) sprHero.dX), Math.round((float) sprHero.dY));
+        /*for (int i = 0; i < arsprWall.length; i++) {
             batch.draw(txWall, arsprWall[i].getX(), arsprWall[i].getY(), 100, 100);
+        }*/
+        for (int i = 0; i < arsprWall.length; i++) {
+            batch.draw(arsprWall[i], arsprWall[i].getX(), arsprWall[i].getY(), arsprWall[i].fH, arsprWall[i].fW);
         }
         batch.draw(arsprRock[0], arsprRock[0].getX(), arsprRock[0].getY(), 100, 100);
+        System.out.println(sprHero.dX + " " + sprHero.dY);
         batch.end();
     }
 
@@ -158,6 +164,6 @@ public class GdxHitMove extends ApplicationAdapter implements InputProcessor {
     }
 
     public static boolean isHit(SprHero spr1, Sprite spr2) {
-        return spr1.retRect().overlaps(spr2.getBoundingRectangle()); //System.out.println("is hit");
+        return spr1.retRect().overlaps(spr2.getBoundingRectangle());
     }
 }
